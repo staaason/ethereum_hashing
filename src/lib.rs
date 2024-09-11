@@ -7,6 +7,10 @@
 //! Now this crate serves primarily as a wrapper over two SHA256 crates: `sha2` and `ring` – which
 //! it switches between at runtime based on the availability of SHA intrinsics.
 
+// Until SP1's toolchain supports version 1.80, we need to manually add the lazy_cell feature. We gate this behind
+// the `zkvm` target to avoid 
+#![cfg_attr(target_os = "zkvm", feature(lazy_cell))]
+
 #[cfg(feature = "zero_hash_cache")]
 use std::sync::LazyLock;
 
